@@ -13,9 +13,21 @@ app.get('/api', async (req, res) => {
         await page.goto(url); 
     
         const pageData = await page.evaluate(() => {
+
+            let titles = [];
+            document.getElementsByTagName("h1").forEach(element => {
+                titles.push(element.innerText);
+            });
+
+            let content = [];
+            document.getElementsByTagName("p").forEach(element => {
+                content.push(element.innerText);
+            });
+
             return {
-                title: document.getElementsByTagName("h1")[2].innerText,
-                content: document.getElementsByTagName("article")[0].innerText
+                // title: document.getElementsByTagName("h1")[2].innerText,
+                titles,
+                content
             }
         })
     
